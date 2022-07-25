@@ -1,0 +1,11 @@
+*.swp
+/media
+/env
+*.pyc
+/static
+/__pycache__
+/.idea
+/docker/nginx/ssl
+.env
+/.vscode
+/data

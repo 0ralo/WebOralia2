@@ -1,0 +1,68 @@
+version: '3.7'
+
+services:
+    postgres:
+        container_name: postgres
+        build:
+            context: ./docker/postgres
+            dockerfile: Dockerfile
+        environment:
+            - POSTGRES_PASSWORD=testpass
+        volumes:
+            - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - "5432:5432"
+
+    web:
+        container_name: web
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/usr/src/app
+        depends_on:
+            - postgres
+            - redis
+        ports:
+            - "8000:8000"
+
+    nginx:
+        container_name: nginx
+        build:
+            context: ./docker/nginx
+            dockerfile: Dockerfile
+        depends_on:
+            - web
+            - postgres
+        ports:
+            - "443:443"
+            - "80:80"
+        volumes:
+            - ./static/:/static/
+            - ./media/:/media/
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
+
+    certbot:
+        container_name: certbot
+        image: certbot/certbot
+        volumes:
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
+
+    redis:
+        container_name: redis
+        image: "redis:alpine"
+        ports:
+            - '6379:6379'
+        restart: always
+
+    celery:
+        restart: always
+        build:
+            context: .
+        command: celery -A app worker -l info
+        depends_on:
+            - postgres
+            - redis
+            - web

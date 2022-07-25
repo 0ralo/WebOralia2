@@ -1,0 +1,1 @@
+RUN celery -A WebOralia2 worker
