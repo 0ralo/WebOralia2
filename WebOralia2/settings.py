@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n^xfr%e89n^v5^l+0(#_^=bha$of(dy%@_em-s^-j)+(!&v&ok'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(env("debug")))
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
 	'website.apps.WebsiteConfig',
 
 	# addons
-	'celery'
 ]
 
 MIDDLEWARE = [
@@ -90,7 +89,7 @@ DATABASES = {
 		'NAME': env("name"),
 		'USER': env("user"),
 		'PASSWORD': env("password"),
-		'HOST': env("lhost"),
+		'HOST': env("host"),
 		'PORT': env("port"),
 	}
 }
@@ -143,7 +142,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # REDIS settings
-REDIS_HOST = "localhost"
+REDIS_HOST = "redis"
 REDIS_PORT = "6379"
 
 # Celery settings

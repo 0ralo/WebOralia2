@@ -20,9 +20,11 @@ services:
             dockerfile: Dockerfile
         volumes:
             - ./:/usr/src/app
+        entrypoint: /usr/src/app/entrypoint.sh
         depends_on:
             - postgres
             - redis
+            - celery
         ports:
             - "8000:8000"
 
@@ -58,11 +60,25 @@ services:
         restart: always
 
     celery:
+        container_name: celery
         restart: always
         build:
             context: .
+        entrypoint: /usr/src/app/celery.sh
         command: celery -A app worker -l info
+        volumes:
+            - ./:/usr/src/app
         depends_on:
-            - postgres
             - redis
-            - web
+
+    flower:
+        container_name: flower
+        restart: always
+        build: .
+        entrypoint: /usr/src/app/flower.sh
+        volumes:
+            - ./:/usr/src/app
+        ports:
+            - "5555:5555"
+        depends_on:
+            - celery

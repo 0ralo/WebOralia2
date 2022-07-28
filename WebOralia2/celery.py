@@ -1,4 +1,4 @@
-from celery import Celery, shared_task
+from celery import Celery
 import os
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'WebOralia2.settings')
