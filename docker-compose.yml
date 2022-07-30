@@ -23,7 +23,6 @@ services:
         entrypoint: /usr/src/app/entrypoint.sh
         depends_on:
             - postgres
-            - redis
             - celery
         ports:
             - "8000:8000"
@@ -35,7 +34,6 @@ services:
             dockerfile: Dockerfile
         depends_on:
             - web
-            - postgres
         ports:
             - "443:443"
             - "80:80"
