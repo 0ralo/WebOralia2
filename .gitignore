@@ -6,6 +6,6 @@
 /__pycache__
 /.idea
 /docker/nginx/ssl
-.env
+deploy/.env
 /.vscode
 /data

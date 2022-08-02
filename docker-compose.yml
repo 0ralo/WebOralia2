@@ -4,7 +4,7 @@ services:
     postgres:
         container_name: postgres
         build:
-            context: ./docker/postgres
+            context: docker/postgres
             dockerfile: Dockerfile
         environment:
             - POSTGRES_PASSWORD=testpass
@@ -16,21 +16,21 @@ services:
     web:
         container_name: web
         build:
-            context: ./
+            context: deploy/
             dockerfile: Dockerfile
         volumes:
             - ./:/usr/src/app
-        entrypoint: /usr/src/app/entrypoint.sh
+        entrypoint: /usr/src/app/deploy/entrypoint.sh
         depends_on:
             - postgres
-            - celery
+
         ports:
             - "8000:8000"
 
     nginx:
         container_name: nginx
         build:
-            context: ./docker/nginx
+            context: docker/nginx
             dockerfile: Dockerfile
         depends_on:
             - web
@@ -61,8 +61,9 @@ services:
         container_name: celery
         restart: always
         build:
-            context: .
-        entrypoint: /usr/src/app/celery.sh
+            context: deploy
+            dockerfile: Dockerfile
+        entrypoint: /usr/src/app/deploy/celery.sh
         command: celery -A app worker -l info
         volumes:
             - ./:/usr/src/app
@@ -72,8 +73,10 @@ services:
     flower:
         container_name: flower
         restart: always
-        build: .
-        entrypoint: /usr/src/app/flower.sh
+        build:
+            context: deploy
+            dockerfile: Dockerfile
+        entrypoint: /usr/src/app/deploy/flower.sh
         volumes:
             - ./:/usr/src/app
         ports:
