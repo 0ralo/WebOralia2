@@ -23,7 +23,7 @@ services:
         entrypoint: /usr/src/app/deploy/entrypoint.sh
         depends_on:
             - postgres
-
+            - celery
         ports:
             - "8000:8000"
 
