@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import environ
+from celery.schedules import crontab
 
 env = environ.Env()
 env.read_env("deploy/.env")
@@ -119,3 +120,10 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESUL_SERIALIZER = "json"
 CELERY_TRACK_STARTED = True
+
+CELERY_BEAT_SCHEDULE = {
+	"sample_task": {
+		"task": "WebOralia2.celery.clean",
+		"schedule": crontab(minute="*/10"),
+	},
+}

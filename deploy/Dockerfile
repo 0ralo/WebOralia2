@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt .
 COPY entrypoint.sh .
-COPY celery.sh .
+COPY celeryworker.sh .
 COPY flower.sh .
 
 

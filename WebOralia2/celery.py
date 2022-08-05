@@ -1,5 +1,8 @@
-from celery import Celery
+from celery import Celery, shared_task
 import os
+import logging
+
+logger = logging.getLogger(__file__)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'WebOralia2.settings')
 
@@ -18,3 +21,10 @@ def add(x, y):
 @app.task
 def deleteimage(name):
 	os.remove("media/codes/{}".format(name))
+
+
+@shared_task
+def clean():
+	files = os.listdir("media/codes/")
+	for i in files:
+		logger.info(i)
