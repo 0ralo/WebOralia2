@@ -24,8 +24,6 @@ services:
         depends_on:
             - postgres
             - celery-worker
-        ports:
-            - "8000:8000"
 
     nginx:
         container_name: nginx

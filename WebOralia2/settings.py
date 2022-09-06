@@ -12,7 +12,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = bool(int(env("debug")))
 
-ALLOWED_HOSTS = ["0ralo.ru", "www.0ralo.ru"]
+ALLOWED_HOSTS = ["0ralo.ru", "www.0ralo.ru", "www.0ralo.online", "0ralo.online"]
 
 if DEBUG:
 	ALLOWED_HOSTS.append("localhost")
@@ -124,6 +124,6 @@ CELERY_TRACK_STARTED = True
 CELERY_BEAT_SCHEDULE = {
 	"sample_task": {
 		"task": "WebOralia2.celery.clean",
-		"schedule": crontab(minute="*/10"),
+		"schedule": crontab(hour="*/10"),
 	},
 }
