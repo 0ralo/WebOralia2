@@ -1,8 +1,7 @@
-from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.core.signing import Signer, BadSignature
-from random import shuffle, random, randint
+from django.core.signing import Signer
+from random import shuffle, randint
 from string import ascii_letters
 from PIL import Image, ImageDraw, ImageFont
 from WebOralia2.celery import deleteimage
@@ -48,18 +47,9 @@ class Captcha(View):
 			return redirect("captcha")
 
 
-class Login(View):
-	def get(self, request: WSGIRequest, *args, **kwargs):
-		try:
-			count = request.COOKIES.get("captcha")
-			if count == 0:
-				return redirect("captcha")
-		except BadSignature:
-			return redirect("captcha")
-		except KeyError:
-			return redirect("captcha")
-		return render(request, "Auth/login.html")
+class Resume(View):
+	template = "resume.html"
 
-	def post(self, request, *args, **kwargs):
-		# TODO if login then login if error then retry and count -=1
-		...
+	def get(self, request, *args, **kwargs):
+		return render(request, self.template)
+

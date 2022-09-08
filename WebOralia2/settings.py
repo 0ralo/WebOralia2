@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 	'website.apps.WebsiteConfig',
 
 	# addons
+	'ninja',
 ]
 
 MIDDLEWARE = [
