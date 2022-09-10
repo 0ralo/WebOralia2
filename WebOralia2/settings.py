@@ -108,6 +108,7 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = ["https://" + i for i in ALLOWED_HOSTS]
 
 # REDIS settings
 REDIS_HOST = "redis"
