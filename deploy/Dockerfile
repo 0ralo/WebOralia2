@@ -7,7 +7,7 @@ COPY entrypoint.sh .
 COPY celeryworker.sh .
 COPY flower.sh .
 
-
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN chmod +x entrypoint.sh
 
