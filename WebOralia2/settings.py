@@ -107,6 +107,7 @@ STATICFILES_DIRS = [
 	BASE_DIR / 'mystatic',
 ]
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = ["https://" + i for i in ALLOWED_HOSTS]
 
