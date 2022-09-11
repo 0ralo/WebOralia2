@@ -28,9 +28,11 @@ INSTALLED_APPS = [
 
 	# apps
 	'website.apps.WebsiteConfig',
+	'api.apps.ApiConfig',
 
 	# addons
 	'ninja',
+	'rest_framework',
 ]
 
 MIDDLEWARE = [

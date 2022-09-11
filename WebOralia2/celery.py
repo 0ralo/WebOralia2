@@ -14,11 +14,6 @@ app.autodiscover_tasks()
 
 
 @app.task
-def add(x, y):
-	return x + y
-
-
-@app.task
 def deleteimage(name):
 	os.remove("media/codes/{}".format(name))
 

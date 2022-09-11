@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from ninja import NinjaAPI
+from .models import Person, Employee
 
 api = NinjaAPI()
 
@@ -9,6 +9,11 @@ def pong(request):
 	return "pong"
 
 
-@api.get("")
-def f(request):
-	return ...
+@api.get("people/")
+def people(request):
+	return Person.objects.all()
+
+
+@api.get("employee/")
+def employee(request):
+	return Employee.objects.all()
