@@ -64,3 +64,11 @@ def get_skill(request, pk):
 		return HttpResponseBadRequest("<h1>Skill was not found</h1>")
 	return HttpResponse(f"Skill[{skill.name}]={skill.percent}")
 
+
+def get_skill2(request, name):
+	try:
+		skill = Skill.objects.get(name=name)
+	except:
+		return HttpResponseBadRequest("<h1>Skill was not found</h1>")
+	return HttpResponse(f"Skill[{skill.name}]={skill.percent}")
+
