@@ -135,37 +135,16 @@
             </div>
             <div class="detail-content">
                 <ul class="tool-list">
+                    {% for skill in skills %}
                     <li>
                         <svg viewbox="0 0 100 100">
                             <circle cx="50" cy="50" r="45"></circle>
                             <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.8"></circle>
                         </svg>
-                        <span class="tl-name">Pycharm</span>
-                        <span class="tl-exp">80%</span>
+                        <span class="tl-name">{{ skill.name }}</span>
+                        <span class="tl-exp">{{ skill.percent }}%</span>
                     </li>
-                    <li>
-                        <svg viewbox="0 0 100 100">
-                            <circle cx="50" cy="50" r="45"></circle>
-                            <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.3"></circle>
-                        </svg>
-                        <span class="tl-name">Vim</span>
-                        <span class="tl-exp">30%</span>
-                    </li>
-                    <li>
-                        <svg viewbox="0 0 100 100">
-                            <circle cx="50" cy="50" r="45"></circle>
-                            <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.7"></circle>
-                        </svg>
-                        <span class="tl-name">Git</span>
-                        <span class="tl-exp">70%</span>
-                    </li>
-                    <li>
-                        <svg viewbox="0 0 100 100">
-                            <circle cx="50" cy="50" r="45"></circle>
-                            <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.7"></circle>
-                        </svg>
-                        <span class="tl-name">Linux</span>
-                        <span class="tl-exp">70%</span>
+                    {% endfor %}
                     </li>
                 </ul>
             </div>

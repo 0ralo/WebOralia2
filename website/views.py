@@ -1,3 +1,4 @@
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.signing import Signer
@@ -5,6 +6,7 @@ from random import shuffle, randint
 from string import ascii_letters
 from PIL import Image, ImageDraw, ImageFont
 from WebOralia2.celery import deleteimage
+from website.models import Skill
 
 
 class Captcha(View):
@@ -51,5 +53,14 @@ class Resume(View):
 	template = "resume.html"
 
 	def get(self, request, *args, **kwargs):
-		return render(request, self.template)
+		skills = Skill.objects.all()
+		return render(request, self.template, {"skills": skills})
+
+
+def get_skill(request, pk):
+	try:
+		skill = Skill.objects.get(pk=pk)
+	except:
+		return HttpResponseBadRequest("<h1>Skill was not found</h1>")
+	return HttpResponse(f"Skill[{skill.name}]={skill.percent}")
 
